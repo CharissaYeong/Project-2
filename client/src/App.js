@@ -27,19 +27,37 @@ import Col from 'react-bootstrap/Col';
 import Stack from 'react-bootstrap/Stack';
 
 import { RiBookOpenFill } from 'react-icons/ri';
+import { FaUserCircle } from 'react-icons/fa';
+
 
 function OffcanvasExample() {
   return (
     <>
+      <Navbar bg="dark" variant="dark">
+        <Container fluid>
+          <Navbar.Brand href="#home">
+            <Stack direction="horizontal" gap={1}>
+              <h1>
+                I hate react
+              </h1>
+              <h1>
+                <RiBookOpenFill />
+              </h1>
+            </Stack>
+          </Navbar.Brand>
+        </Container>
+      </Navbar>
 
-    <Container fluid>
-    <h1>I HATE REACT <RiBookOpenFill /> </h1>
-    </Container>
-
-      {[false].map((expand) => (
-        <Navbar key={expand} bg="light" expand={expand} className="mb-3">
+      {['md'].map((expand) => (
+        <Navbar key={expand} bg="light" expand={expand} sticky="top" className="mb-3">
           <Container fluid>
-            <Navbar.Brand href="#">Navbar Offcanvas</Navbar.Brand>
+            {/* <Navbar.Brand href="#">Welcome 'Username'!</Navbar.Brand> */}
+            <Stack direction="horizontal" gap={2}>
+            <h3><FaUserCircle /></h3>
+            <Navbar.Text>
+            Welcome <a href="#login">Username</a>
+          </Navbar.Text>
+            </Stack>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
