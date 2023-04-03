@@ -2,10 +2,10 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import './landing.css';
 
-import { Container, Stack, Row, Col, Button, Image } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 
 import Welcome from "../components/welcome"
-import Register from "../components/register";
+import Auth from "../components/auth";
 import 'animate.css';
 
 export default function Landing() {
@@ -19,8 +19,8 @@ export default function Landing() {
                             <h1>Drabble.</h1>
                         </div>
                         <Container fluid className="btns">
-                            <Register view="Login" />
-                            <Register view="Register" />
+                            <Auth view="Login" />
+                            <Auth view="Register" />
                         </Container>
                 </Container>
             </Col>

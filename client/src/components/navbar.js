@@ -1,44 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import './navbar.css';
-
+import { Link, useNavigate } from 'react-router-dom'
+import { useCookies } from "react-cookie";
 import { Button, Container, Form, Nav, Navbar, NavDropdown, Offcanvas, Stack} from 'react-bootstrap'
-
 import { FaUserCircle } from 'react-icons/fa';
 
 export default function Navigation() {
+const [cookies, setCookies] = useCookies(["access_token"])
+const navigate = useNavigate()
+
+
+
+const logout = () => {
+  setCookies("access_token", "");
+  window.localStorage.removeItem("userID");
+  navigate("/")
+}
+
   return (
     <>
-      {/* <style>
-        {
-          `h1 {
-              font-family: 'Fredericka the Great', cursive; 
-              font-size: 2rem;
-              padding: 0.5rem;
-              border-top: 3px double white;
-              border-bottom: 3px double white;
-            }
-            .navbar-toggler-icon{
-              background-image: url('https://api.iconify.design/material-symbols/menu-book.svg') !important;
-              background-size: contain;
-              background-repeat: no-repeat;
-            }
-            .logo_body {
-              background-color: navy;
-            }
-            #offcanvasNavbar-expand-md {
-              width: 80vw
-            }`
-        }
-      </style> */}
-
-      <Navbar variant="dark" className="logo_body">
+      <Navbar variant="light" className="logo_body">
         <Container fluid>
-          <Navbar.Brand href="#home" className="nav_logo">
-              <h1>
-                Drabble.
-              </h1>
-          </Navbar.Brand>
+        <Link to="/"><div className="nav_logo">
+              <h1 className="nav_logo">Drabble.</h1>
+          </div></Link>
         </Container>
       </Navbar>
 
@@ -46,11 +32,10 @@ export default function Navigation() {
         ['md'].map((expand) => (
           <Navbar key={expand} bg="light" expand={expand} sticky="top" className="nav_body">
             <Container fluid>
-              {/* <Navbar.Brand href="#">Welcome 'Username'!</Navbar.Brand> */}
               <Stack direction="horizontal" gap={2}>
                 <h3><FaUserCircle /></h3>
                 <Navbar.Text>
-                  Welcome <a href="#login">Username</a>
+                  Welcome <Link to="/">Username</Link>
                 </Navbar.Text>
               </Stack>
               <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
@@ -61,14 +46,17 @@ export default function Navigation() {
               >
                 <Offcanvas.Header closeButton>
                   <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                    Offcanvas
+                    Menu
                   </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                   <Nav className="justify-content-end flex-grow-1 pe-3">
-                    <Nav.Link href="#action1">Home</Nav.Link>
-                    <Nav.Link href="#action2">Link</Nav.Link>
-                    <NavDropdown
+                  <Link to="/" className="nav-link">Current Story</Link>
+                  <Link to="/" className="nav-link">Previous Stories</Link>
+                  <Link to="/" className="nav-link">Your Entries</Link>
+                  <Link to="/" className="nav-link">Account</Link>
+                  
+                    {/* <NavDropdown
                       title="Dropdown"
                       id={`offcanvasNavbarDropdown-expand-${expand}`}
                     >
@@ -80,7 +68,7 @@ export default function Navigation() {
                       <NavDropdown.Item href="#action5">
                         Something else here
                       </NavDropdown.Item>
-                    </NavDropdown>
+                    </NavDropdown> */}
                   </Nav>
                   <Form className="d-flex">
                     <Form.Control
@@ -91,6 +79,7 @@ export default function Navigation() {
                     />
                     <Button variant="outline-success">Search</Button>
                   </Form>
+                  <Button variant="outline-primary" size="sm" onClick={logout}>Log out</Button>
                 </Offcanvas.Body>
               </Navbar.Offcanvas>
             </Container>

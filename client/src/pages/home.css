@@ -1,5 +1,20 @@
 .home_body {
     margin: 0;
-    padding: 0;
-    background-color: palegreen;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    /* background-color: wheat; */
+    text-align: justify;
+}
+
+.story_home {
+    margin: 0;
+    padding: 0.5rem;
+}
+
+.img {
+    background-image: url("../images/cover.png");
+    background-size: cover;
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
 }

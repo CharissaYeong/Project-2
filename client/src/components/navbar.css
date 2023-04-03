@@ -1,9 +1,9 @@
 .nav_logo h1 {
     font-family: 'Fredericka the Great', cursive; 
-    font-size: 2rem;
+    font-size: 3rem;
     padding: 0.3rem 1.25rem;
-    border-top: 3px double white;
-    border-bottom: 3px double white;
+    border-top: 4px double black;
+    border-bottom: 4px double black;
   }
 .nav_logo {
   margin-top: 0.5rem;
@@ -14,7 +14,8 @@
     background-repeat: no-repeat;
   }
   .logo_body {
-    background-color: navy;
+    background-color: blanchedalmond;
+    /* border: 10px double black; */
   }
   #offcanvasNavbar-expand-md {
     width: 80vw
