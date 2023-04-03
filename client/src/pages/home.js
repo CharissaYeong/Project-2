@@ -5,10 +5,11 @@ import {Row, Col, Container, Card, Image, Tab, Tabs} from 'react-bootstrap'
 import Navigation from "../components/navbar";
 import StoryHome from "../components/storyhome";
 import Entry from "../components/entry";
+import GetEntries from "../components/getplot";
 
 export default function Home() {
-  const [storyID, setStoryID] = useState("");
-  const [objectID, setobjectID] = useState("");
+  const [userID, setuserID] = useState("");
+  const [storyID, setstoryID] = useState("");
 
 
   return (
@@ -31,6 +32,7 @@ export default function Home() {
       </Tab>
       <Tab eventKey="entries" title="View / Submit Entries">
         <Entry />
+        <GetEntries />
       </Tab>
     </Tabs>
     </main>

@@ -7,34 +7,27 @@ import axios from 'axios'
 
 
 const Newplot = () => {
-    const [objectID, setobjectID] = useState("");
+    const [userID, setuserID] = useState("");
     const [storyID, setstoryID] = useState("");
-    const [likes, setLikes] = useState("");
-    
-    // const [content, setContent] = useState([]);
 
-    const date = new Date()
     const type = 'plot'
 
     useEffect(() => {
-        setobjectID(localStorage.getItem('userID'));
+        setuserID(localStorage.getItem('userID'));
         setstoryID(1);
-        setLikes(0);
       }, []);
   
     return (
         <Formik
-            initialValues={{ oid: '', story_id: '', datetime: '', likes: '', type: '', content: ''}}
+            initialValues={{ userID: '', story_id: '', type: '', content: ''}}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
 
                 setTimeout(async () => {
                     // alert('Registered sucessfully!' + JSON.stringify(values, null, 2));
                     try {
                         await axios.post("http://localhost:3001/newplot", {
-                            "oid": objectID,
+                            "userID": userID,
                             "story_id": storyID,
-                            "datetime": date,
-                            "likes": likes,
                             "type": type,
                             "content": values.content
                         }) .then((response) => {

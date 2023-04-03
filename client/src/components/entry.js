@@ -15,7 +15,7 @@ export default function OffCanvasExample({ name, ...props }) {
       <Button variant="primary" onClick={handleShow} className="me-2">
         {name}
       </Button>
-      <Offcanvas show={show} onHide={handleClose}>
+      <Offcanvas show={show} onHide={handleClose} placement="bottom">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Offcanvas</Offcanvas.Title>
         </Offcanvas.Header>

@@ -5,28 +5,31 @@ const ObjectID = require('mongodb').ObjectId
 
 router.post('/', async function (req, res) {
     const db = await MongoUtil.connect()
-    const { datetime, likes, type, story_id, content, oid } = req.body
-    const objId = new ObjectID(oid);
+    const { type, story_id, content, userID } = req.body
+    const objId = new ObjectID(userID);
+    const entryID = new ObjectID();
 
     const newEntry = {
-        "datetime": datetime,
-        "likes": likes,
+        "_id": entryID,
+        "datetime": new Date(),
+        "likes": 0,
         "story_id": story_id,
         "content": [content],
         "type": type,
     };
 
-
     try {
-        db.collection('users').updateOne(
+        await db.collection('users').updateOne(
             { _id: objId },
-            { $push: { entries: newEntry}}
+            {$push: { entries: { $each: [newEntry] }
+                }
+              }
         ) 
         res.status(201).send('Entry posted');
     } catch (err) {
-                res.status(409).send('Failed to create entry');
+        console.error(err);
+        return res.status(409).send('Failed to create entry');
     } 
-
 })
 
-module.exports = router
+module.exports = router;

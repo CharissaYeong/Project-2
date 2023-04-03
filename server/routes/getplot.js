@@ -1,22 +1,29 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router();
 const MongoUtil = require("../modules/MongoUtil");
-// const ObjectID = require('mongodb').ObjectId
 
 router.get('/', async function (req, res) {
-    // const { oid }
-    // const objId = new ObjectID('642870aa2db4b4e6d6958750');
-    let db = await MongoUtil.connect()
+    let db = await MongoUtil.connect();
     try {
-        const story = await db.collection('users')
-        .find({})
-        .project({ 'story_id': 1, 'entries': 1, '_id': 0})
-        .filter({'entries.type': 'plot'})
-        .toArray()
-        res.send(story);
-      } catch (error) {
-        res.status(500).send('Internal Server Error');
-      }
-})
+        const entries = await db.collection('users')
+            .find({})
+            .project({ 'entries': 1, '_id': 1, 'username': 1 })
+            .toArray();
 
-module.exports = router
+        const latestEntry = entries.reduce((acc, curr) => {
+            if (curr.entries && curr.entries.length > 0) {
+                const entry = curr.entries[curr.entries.length - 1];
+                if (!acc.datetime || entry.datetime > acc.datetime) {
+                    return { ...entry, username: curr.username };
+                }
+            }
+            return acc;
+        }, {});
+
+        res.json({ entries, latestEntry });
+    } catch (error) {
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+module.exports = router;

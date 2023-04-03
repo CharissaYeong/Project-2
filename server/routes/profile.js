@@ -12,6 +12,4 @@ const jwt = require('jsonwebtoken')
       res.json(user_list);
 })
 
-
-
 module.exports = router

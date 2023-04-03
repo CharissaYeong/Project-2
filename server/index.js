@@ -36,6 +36,7 @@ const profileRoute = require('./routes/profile')
 const storyhomeRoute = require('./routes/storyhome')
 const getplotRoute = require('./routes/getplot')
 const newplotRoute = require('./routes/newplot')
+const likeRoute = require('./routes/like')
 
 const checkIfAuthenticatedJWT = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -62,6 +63,7 @@ app.use("/profile", checkIfAuthenticatedJWT, profileRoute)
 app.use("/storyhome", storyhomeRoute)
 app.use("/getplot", getplotRoute)
 app.use("/newplot", newplotRoute)
+app.use("/", likeRoute )
 
 // START SERVER
 app.listen(3001, () => {
