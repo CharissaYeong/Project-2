@@ -1,0 +1,25 @@
+{
+    "email": "",
+    "username": "",
+    "password": "",
+    "entries": [
+        {
+        "datetime": "",
+        "likes": "",
+        "type": "",
+        "story": "",
+        "content": {
+            "name": "",
+            "species": "",
+            "role": "",
+            "description": ""
+        }},
+        {
+            "datetime": "",
+            "likes": "",
+            "type": "",
+            "story": "",
+            "content": []
+        }
+        ]
+}

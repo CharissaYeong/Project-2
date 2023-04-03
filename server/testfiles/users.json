@@ -1,0 +1,26 @@
+{
+    "email": "admin@gmail.com",
+    "username": "admin",
+    "password": "$2b$10$9MdhB1oDXHRbXOdDMXbMxOCJu52p9tuXTFe91cJ.nQUzdL46roluS",
+    "entries": [
+        {
+        "datetime": "",
+        "likes": "40",
+        "type": "characters",
+        "story": "64284cf32db4b4e6d6958749",
+        "content": {
+            "name": "Bobby Bobbington",
+            "species": "Human",
+            "role": "Villain",
+            "description": "A loser just like you."
+        }},
+        {
+            "datetime": "",
+            "likes": "15",
+            "type": "plot",
+            "story": "64284cf32db4b4e6d6958749",
+            "content": [
+                "Sarah had always been fascinated by time travel. The idea of being able to go back in time and change things, to see how history really played out, was thrilling to her."
+            ]
+        }]
+}
