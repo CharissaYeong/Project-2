@@ -1,51 +1,88 @@
+// const express = require('express');
+// const router = express.Router();
+// const MongoUtil = require('../modules/MongoUtil');
+
+// router.get('/entries/content/:query', async (req, res) => {
+//   const query = req.params.query;
+//   try {
+//     const db = await MongoUtil.connect();
+//     const users = await db.collection('users')
+//       .find({
+//         "entries.content": {
+//           $regex: new RegExp(query, 'i')
+//         }
+//       })
+//       .toArray();
+
+//     const allEntries = [];
+//     let latestEntry = null;
+
+//     users.forEach((user) => {
+//       const userId = user._id.toString();
+//       const { username, entries } = user;
+
+//       if (entries?.length > 0) {
+//         entries.forEach((entry) => {
+//           allEntries.push({ ...entry, userId, username });
+
+//           if (!latestEntry || entry.datetime > latestEntry.datetime) {
+//             latestEntry = { ...entry, userId, username };
+//           }
+//         });
+//       }
+//     });
+
+//     allEntries.sort((a, b) => {
+//       return new Date(b.datetime) - new Date(a.datetime);
+//     });
+
+//     res.json({ allEntries, latestEntry });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
+
+// module.exports = router;
+
 const express = require('express');
 const router = express.Router();
-const MongoUtil = require("../modules/MongoUtil");
+const MongoUtil = require('../modules/MongoUtil');
 
-app.get('/search/:query', async (req, res) => {
-    let db = await MongoUtil.connect();
-    try {
-        const query = req.params.query;
-        const entries = await db.collection('users')
-            .find({})
-            .project({ 'entries': 1, '_id': 1, 'username': 1 })
-            .toArray();
-        res.json(entries);
-    } catch (error) {
-        res.status(500).send('Internal Server Error');
-    }
-});
+router.get('/entries/content/:query', async (req, res) => {
+  const query = req.params.query;
+  try {
+    const db = await MongoUtil.connect();
+    const users = await db.collection('users')
+      .find({
+        "entries.content": {
+          $regex: new RegExp(query, 'i')
+        }
+      })
+      .toArray();
 
-const results = db.collection.find({
-    "entries.content": {
-        $regex: new RegExp(query, 'i')
-    }
-});
+    const allEntries = [];
 
-module.exports = router;
+    users.forEach((user) => {
+      const userId = user._id.toString();
+      const { username, entries } = user;
 
-router.get('/', async function (req, res) {
-    let db = await MongoUtil.connect();
-    try {
-        const entries = await db.collection('users')
-            .find({})
-            .project({ 'entries': 1, '_id': 1, 'username': 1 })
-            .toArray();
+      if (entries?.length > 0) {
+        entries.forEach((entry) => {
+          allEntries.push({ ...entry, userId, username });
+        });
+      }
+    });
 
-        const latestEntry = entries.reduce((acc, curr) => {
-            if (curr.entries && curr.entries.length > 0) {
-                const entry = curr.entries[curr.entries.length - 1];
-                if (!acc.datetime || entry.datetime > acc.datetime) {
-                    return { ...entry, username: curr.username };
-                }
-            }
-            return acc;
-        }, {});
+    allEntries.sort((a, b) => {
+      return new Date(b.datetime) - new Date(a.datetime);
+    });
 
-        res.json({ entries, latestEntry });
-    } catch (error) {
-        res.status(500).send('Internal Server Error');
-    }
+    res.json({ allEntries });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 module.exports = router;

@@ -9,6 +9,7 @@ import axios from 'axios'
 const Newplot = () => {
     const [userID, setuserID] = useState("");
     const [storyID, setstoryID] = useState("");
+    const [latestEntry, setLatestEntry] = useState([])
 
     const type = 'plot'
 
@@ -31,7 +32,6 @@ const Newplot = () => {
                             "type": type,
                             "content": values.content
                         }) .then((response) => {
-                            console.log(response.data)
                             alert(response.data);
                           })
                     }   catch (error) {

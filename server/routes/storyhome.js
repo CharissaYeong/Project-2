@@ -9,7 +9,7 @@ router.get('/', async function (req, res) {
         .find({})
         .project({ 'story_id': 1, 'prompt': 1, 'title': 1, 'plot': 1, '_id': 0})
         .toArray()
-        res.send(story);
+        res.json(story);
       } catch (error) {
         res.status(500).send('Internal Server Error');
       }

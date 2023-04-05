@@ -15,8 +15,8 @@ export default function StoryHome() {
         try {
             axios.get('http://localhost:3001/storyhome')
                 .then((response) => {
-                    const jsonData = response.data;
-                    const story = jsonData.filter(story => story.story_id === "1");
+                    let Data = response.data
+                    const story = Data.filter(story => story.story_id === "1");
                     const prompt = story[0].prompt;
                     const title = story[0].title;
                     const plot = story[0].plot;

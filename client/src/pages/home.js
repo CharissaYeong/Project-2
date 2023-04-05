@@ -1,16 +1,41 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import './home.css';
-import {Row, Col, Container, Card, Image, Tab, Tabs} from 'react-bootstrap'
+import {Container, Tab, Tabs} from 'react-bootstrap'
+
 import Navigation from "../components/navbar";
 import StoryHome from "../components/storyhome";
 import Entry from "../components/entry";
 import GetEntries from "../components/getplot";
+import SearchEntry from "../components/entrysearch";
+import axios from "axios";
+
 
 export default function Home() {
-  const [userID, setuserID] = useState("");
-  const [storyID, setstoryID] = useState("");
+  const [userID, setUserID] = useState("");
+  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
+  const [storyID, setStoryID] = useState("");
 
+  useEffect(() => {
+    setUserID(localStorage.getItem('userID'))
+  }, []);
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/users/${localStorage.getItem('userID')}`);
+        const profile = response.data;
+        setUsername(profile[0].username)
+        setEmail(profile[0].email)
+      } catch (error) {
+        console.log(error.response.data)
+      }
+    };
+    
+    getUser()
+
+  }, []);
 
   return (
     <>
@@ -20,7 +45,6 @@ export default function Home() {
       defaultActiveKey="home"
       id="home_tabs"
       className="mb-3"
-      sticky="top"
     >
       <Tab eventKey="home" title="Home">
         <Container fluid className="story_home">
@@ -30,9 +54,12 @@ export default function Home() {
       <Tab eventKey="characters" title="Characters">
         List of characters
       </Tab>
-      <Tab eventKey="entries" title="View / Submit Entries">
-        <Entry />
+      <Tab eventKey="Submit Entries" title="Submit Entries">
+      <Entry />
         <GetEntries />
+      </Tab>
+      <Tab eventKey="Search Entries" title="Search Entries">
+        <SearchEntry />
       </Tab>
     </Tabs>
     </main>

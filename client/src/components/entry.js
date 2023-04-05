@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Button, Offcanvas } from 'react-bootstrap';
 import Newplot from './newplot';
 
-export default function OffCanvasExample({ name, ...props }) {
+export default function Entry({ name, ...props }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
