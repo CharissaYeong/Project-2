@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import './home.css';
-import {Container, Tab, Tabs} from 'react-bootstrap'
+import { Container, Tab, Tabs } from 'react-bootstrap'
 
 import Navigation from "../components/navbar";
 import StoryHome from "../components/storyhome";
 import Entry from "../components/entry";
 import GetEntries from "../components/getplot";
 import SearchEntry from "../components/entrysearch";
+import UserEntry from "../components/userentry";
 import axios from "axios";
 
 
@@ -32,38 +33,38 @@ export default function Home() {
         console.log(error.response.data)
       }
     };
-    
+
     getUser()
 
   }, []);
 
   return (
     <>
-    <Navigation />
-    <main className="home_body">
-    <Tabs
-      defaultActiveKey="home"
-      id="home_tabs"
-      className="mb-3"
-    >
-      <Tab eventKey="home" title="Home">
-        <Container fluid className="story_home">
-        <StoryHome />
-        </Container>
-      </Tab>
-      <Tab eventKey="characters" title="Characters">
-        List of characters
-      </Tab>
-      <Tab eventKey="Submit Entries" title="Submit Entries">
-      <Entry />
-        <GetEntries />
-      </Tab>
-      <Tab eventKey="Search Entries" title="Search Entries">
-        <SearchEntry />
-      </Tab>
-    </Tabs>
-    </main>
+      <Navigation />
+      <main className="home_body">
+        <Tabs
+          defaultActiveKey="home"
+          id="home_tabs"
+          className="mb-3"
+        >
+          <Tab eventKey="home" title="Home">
+            <Container fluid className="story_home">
+              <StoryHome />
+            </Container>
+          </Tab>
+          <Tab eventKey="characters" title="Characters">
+            List of characters
+          </Tab>
+          <Tab eventKey="submit entries" title="Submit Entries">
+            <Entry />
+            <SearchEntry />
+          </Tab>
+          <Tab eventKey="your entries" title="Your Entries">
+            <UserEntry />
+          </Tab>
+        </Tabs>
+      </main>
     </>
-    )
+  )
 
 }

@@ -1,3 +1,43 @@
+// const express = require('express');
+// const router = express.Router();
+// const MongoUtil = require('../modules/MongoUtil');
+
+// router.get('/', async (req, res) => {
+//   try {
+//     const db = await MongoUtil.connect();
+//     const users = await db.collection('users').find().toArray();
+
+//     const allEntries = [];
+//     let latestEntry = null;
+
+//     users.forEach((user) => {
+//       const userId = user._id.toString();
+//       const { username, entries } = user;
+
+//       if (entries?.length > 0) {
+//         entries.forEach((entry) => {
+//           allEntries.push({ ...entry, userId, username });
+
+//           if (!latestEntry || entry.datetime > latestEntry.datetime) {
+//             latestEntry = { ...entry, userId, username };
+//           }
+//         });
+//       }
+//     });
+
+//     allEntries.sort((a, b) => {
+//         return new Date(b.datetime) - new Date(a.datetime);
+//     });
+
+//     res.json({ allEntries, latestEntry });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
+
+// module.exports = router;
+
 const express = require('express');
 const router = express.Router();
 const MongoUtil = require('../modules/MongoUtil');
@@ -5,10 +45,11 @@ const MongoUtil = require('../modules/MongoUtil');
 router.get('/', async (req, res) => {
   try {
     const db = await MongoUtil.connect();
-    const users = await db.collection('users').find().toArray();
+    const users = await db.collection('users')
+    .find({})
+    .toArray();
 
     const allEntries = [];
-    let latestEntry = null;
 
     users.forEach((user) => {
       const userId = user._id.toString();
@@ -17,10 +58,6 @@ router.get('/', async (req, res) => {
       if (entries?.length > 0) {
         entries.forEach((entry) => {
           allEntries.push({ ...entry, userId, username });
-
-          if (!latestEntry || entry.datetime > latestEntry.datetime) {
-            latestEntry = { ...entry, userId, username };
-          }
         });
       }
     });
@@ -29,7 +66,7 @@ router.get('/', async (req, res) => {
         return new Date(b.datetime) - new Date(a.datetime);
     });
 
-    res.json({ allEntries, latestEntry });
+    res.json({ allEntries });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
@@ -37,4 +74,3 @@ router.get('/', async (req, res) => {
 });
 
 module.exports = router;
-

@@ -55,9 +55,9 @@ router.get('/entries/content/:query', async (req, res) => {
     const db = await MongoUtil.connect();
     const users = await db.collection('users')
       .find({
-        "entries.content": {
-          $regex: new RegExp(query, 'i')
-        }
+        // "entries.content": {
+        //   $regex: new RegExp(query, 'i')
+        // }
       })
       .toArray();
 
@@ -69,7 +69,9 @@ router.get('/entries/content/:query', async (req, res) => {
 
       if (entries?.length > 0) {
         entries.forEach((entry) => {
-          allEntries.push({ ...entry, userId, username });
+          if (new RegExp(query, 'i').test(entry.content)) {
+            allEntries.push({ ...entry, userId, username });
+          }
         });
       }
     });

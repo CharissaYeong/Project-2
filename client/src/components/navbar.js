@@ -51,10 +51,10 @@ const logout = () => {
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                   <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Link to="/" className="nav-link">Current Story</Link>
-                  <Link to="/" className="nav-link">Previous Stories</Link>
-                  <Link to="/" className="nav-link">Your Entries</Link>
-                  <Link to="/" className="nav-link">Account</Link>
+                  <Link to="/Home" className="nav-link">Current Story</Link>
+                  <Link to="/Home" className="nav-link">Previous Stories</Link>
+                  <Link to="/Home" className="nav-link">Your Entries</Link>
+                  <Link to="/Home" className="nav-link">Account</Link>
                   
                     {/* <NavDropdown
                       title="Dropdown"

@@ -44,11 +44,8 @@ const Newplot = () => {
             }}
 
             validationSchema={Yup.object({
-                // type: Yup.string()
-                //     .matches(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, 'Incorrect email format')
-                //     .required('Email is required'),
                 content: Yup.string()
-                    .min(200, 'Entry should be at least 200 characters')
+                    .min(100, 'Entry should be at least 100 characters')
                     .max(1000, 'Entry should not be longer than 1000 characters')
                     .matches(/^[A-Z][^!?]*[.!?](\s+[A-Z][^!?]*[.!?])*$/, 'Entry should only contain complete sentences')
                     .required('Please write your entry.')

@@ -37,6 +37,10 @@ const storyhomeRoute = require('./routes/storyhome')
 const getplotRoute = require('./routes/getplot')
 const newplotRoute = require('./routes/newplot')
 const entrysearchRoute = require('./routes/entrysearch')
+const userentryRoute = require('./routes/userentry')
+const userentryallRoute = require('./routes/userentryall')
+const entrydelete = require('./routes/entrydelete')
+const editentry = require('./routes/editentry')
 const likeRoute = require('./routes/like')
 
 const checkIfAuthenticatedJWT = (req, res, next) => {
@@ -65,6 +69,10 @@ app.use("/storyhome", storyhomeRoute)
 app.use("/getplot", getplotRoute)
 app.use("/newplot", newplotRoute)
 app.use("/", entrysearchRoute)
+app.use("/", userentryallRoute)
+app.use("/", userentryRoute)
+app.use("/", entrydelete)
+app.use("/", editentry)
 app.use("/", likeRoute )
 
 // checkIfAuthenticatedJWT

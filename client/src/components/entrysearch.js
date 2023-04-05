@@ -86,7 +86,7 @@ function SearchEntry() {
 
   useEffect(() => {
     handleSearch('');
-  }, []);
+    }, []);
 
   return (
     <div>
