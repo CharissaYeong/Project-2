@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import './home.css';
 import { Container, Tab, Tabs } from 'react-bootstrap'
@@ -6,22 +6,19 @@ import { Container, Tab, Tabs } from 'react-bootstrap'
 import Navigation from "../components/navbar";
 import StoryHome from "../components/storyhome";
 import Entry from "../components/entry";
-import GetEntries from "../components/getplot";
+// import GetEntries from "../components/getplot";
 import SearchEntry from "../components/entrysearch";
 import UserEntry from "../components/userentry";
 import axios from "axios";
 
+export const EntryContext = createContext()
 
 export default function Home() {
-  const [userID, setUserID] = useState("");
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [storyID, setStoryID] = useState("");
-
-  useEffect(() => {
-    setUserID(localStorage.getItem('userID'))
-  }, []);
-
+  const [updated, setUpdated] = useState(false);
+  
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -39,7 +36,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <EntryContext.Provider value={[updated, setUpdated]}>
       <Navigation />
       <main className="home_body">
         <Tabs
@@ -64,7 +61,7 @@ export default function Home() {
           </Tab>
         </Tabs>
       </main>
-    </>
+    </ EntryContext.Provider>
   )
 
 }

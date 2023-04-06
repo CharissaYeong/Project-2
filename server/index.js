@@ -41,6 +41,7 @@ const userentryRoute = require('./routes/userentry')
 const userentryallRoute = require('./routes/userentryall')
 const entrydelete = require('./routes/entrydelete')
 const editentry = require('./routes/editentry')
+const getentry = require('./routes/getentry')
 const likeRoute = require('./routes/like')
 
 const checkIfAuthenticatedJWT = (req, res, next) => {
@@ -73,6 +74,7 @@ app.use("/", userentryallRoute)
 app.use("/", userentryRoute)
 app.use("/", entrydelete)
 app.use("/", editentry)
+app.use("/", getentry)
 app.use("/", likeRoute )
 
 // checkIfAuthenticatedJWT
