@@ -4,54 +4,61 @@ import { Stack } from "react-bootstrap";
 import axios from "axios";
 import { EntryContext } from "../pages/home";
 
-export default function StoryHome(props) {
+export default function StoryHome({ ...props }) {
     const [prompt, setPrompt] = useState("");
-    const [cover, setCover] = useState("");
+    // const [cover, setCover] = useState("");
     const [title, setTitle] = useState("");
     const [plot, setPlot] = useState([]);
-    const [Active, setActive] = useState("");
-    const [updated, setUpdated] = useContext(EntryContext)
+    const [updated, setUpdated] = useContext(EntryContext);
+    const [storyID, setStoryID] = useState("")
 
     useEffect(() => {
         try {
-            axios.get('http://localhost:3001/storyhome')
+            axios.get('http://localhost:3001/stories')
                 .then((response) => {
                     let Data = response.data
                     const story = Data.filter(story => story.active === "1");
                     const prompt = story[0].prompt;
                     const title = story[0].title;
-                    const plot = story[0].plot;
                     props.storyID(story[0]._id)
+                    setStoryID(story[0]._id)
                     setPrompt(prompt)
                     setTitle(title)
-                    setPlot(plot)
+
                 })
         } catch (error) {
             // console.log(error.response.data)
-            alert(error.response.data)
+            console.log(error)
         }
-      }, []);
+    }, [storyID, updated]);
 
-    //   useEffect(() => {
-    //     try {
-    //         axios.get('http://localhost:3001/storyhome')
-    //             .then((response) => {
-    //                 let Data = response.data
-    //                 const story = Data.filter(story => story.active === "1");
-    //                 const plot = story[0].plot;
-    //                 setPlot(plot)
-    //             })
-    //     } catch (error) {
-    //         // console.log(error.response.data)
-    //         alert(error.response.data)
-    //     }
-    //   }, [updated]);
+    useEffect(() => {
+        if (!storyID) {
+            return
+        } else {
+            try {
+                axios.get(`http://localhost:3001/stories/${storyID}/entries`)
+                    .then((response) => {
+                        const story = response.data
+                        if (story.length > 0 && story[0]._id !== plot[0]?._id) {
+                            // setPlot(story)
+                            setPlot(prevPlot => [...story])
+                            console.log(plot)
+                        } else {
+                            return
+                        }
+                    })
+            } catch (error) {
+                alert(error.response.data)
+            }
+        }
+    }, [updated, storyID]);
 
     return (
         <>
             <Stack gap={3}>
                 <Stack gap={3}>
-                <div className="img"></div>
+                    <div className="img"></div>
                     <h3>Prompt:</h3>
                     {prompt}
                 </Stack>
@@ -61,15 +68,12 @@ export default function StoryHome(props) {
                 </Stack>
                 <Stack>
                     <h3>Plot:</h3>
-                    {/* {Plot} */}
                     <div>
-                        {plot.map((plotPoints, index) => {
-                            return (
-                                <p key={index}>
-                                    {plotPoints}
-                                </p>
-                            );
-                        })}
+                        {plot.map((plotPoint) => (
+                            <p key={plotPoint._id}>
+                                {plotPoint.content}
+                            </p>
+                        ))}
                     </div>
                 </Stack>
             </Stack>

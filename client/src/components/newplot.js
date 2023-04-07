@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Field, Form } from 'formik';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as Yup from 'yup';
-import { Stack, Modal } from 'react-bootstrap';
+import { Stack } from 'react-bootstrap';
 import axios from 'axios'
 
 
 const Newplot = () => {
     const [userID, setuserID] = useState("");
     const [storyID, setstoryID] = useState("");
-    const [latestEntry, setLatestEntry] = useState([])
 
     const type = 'plot'
 
@@ -67,22 +66,9 @@ const Newplot = () => {
                                 <div className="invalid-feedback">{formik.errors.content}</div>
                             ) : null}
                         </div>
-
-                        {/* <div className="form-group">
-                            <label htmlFor="username">Username</label>
-                            <Field name="username" className={(formik.touched.username && formik.errors.username) ? 'form-control is-invalid' : 'form-control'}
-                                type="text" placeholder="Username will be visible to others" />
-                            {formik.touched.username && formik.errors.username ? (
-                                <div className="invalid-feedback">{formik.errors.username}</div>
-                            ) : null}
-                        </div> */}
-
-                        {/* <Modal.Footer> */}
-                        {/* <hr></hr> */}
                             <div className="form-group align-self-end">
                                 <button type="submit" className="btn btn-primary" disabled={isSubmitting}>{isSubmitting ? "Please wait..." : "Submit"}</button>
                             </div>
-                        {/* </Modal.Footer> */}
                     </Stack>
                 </Form>
             )

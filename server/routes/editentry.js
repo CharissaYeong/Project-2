@@ -34,7 +34,7 @@ const router = express.Router();
 const MongoUtil = require("../modules/MongoUtil");
 const ObjectID = require('mongodb').ObjectId;
 
-router.put('/entries/edit/:userID/:entryID', async (req, res) => {
+router.put('/edit/:userID/:entryID', async (req, res) => {
   const db = await MongoUtil.connect();
   const User = db.collection('users');
   const userID = req.params.userID;

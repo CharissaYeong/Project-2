@@ -6,24 +6,29 @@ import EditEntry from './editentry'
 import { EntryContext } from '../pages/home';
 import { debounce } from 'lodash';
 
-function UserEntry({...props}) {
+function UserEntry({ ...props }) {
     const [entries, setEntries] = useState([]);
     const [updated, setUpdated] = useContext(EntryContext);
     const { storyID } = props;
 
     const handleSearch = async (query, story_id) => {
-        try {
-            if (query === '') {
-                const response = await axios.get(`http://localhost:3001/entries/${story_id}/${localStorage.getItem('userID')}`);
-                setEntries(response.data.allEntries);
-            } else {
-                const response = await axios.get(`http://localhost:3001/entries/${story_id}/${localStorage.getItem('userID')}/${query}`);
-                setEntries(response.data.allEntries);
+        if (!story_id) {
+            return
+        } else {
+            try {
+                if (query === '') {
+                    const response = await axios.get(`http://localhost:3001/entries/${story_id}/${localStorage.getItem('userID')}`);
+                    setEntries(response.data.allEntries);
+                } else {
+                    const response = await axios.get(`http://localhost:3001/entries/${story_id}/${localStorage.getItem('userID')}/${query}`);
+                    setEntries(response.data.allEntries);
+                }
+            } catch (error) {
+                console.error(error);
             }
-        } catch (error) {
-            console.error(error);
         }
     }
+
 
     const handleDelete = async (entryID) => {
         if (window.confirm("Are you sure you want to delete this entry?")) {
@@ -37,7 +42,7 @@ function UserEntry({...props}) {
         }
     }
 
-     const debouncedHandleSearch = debounce(handleSearch, 500);
+    const debouncedHandleSearch = debounce(handleSearch, 500);
 
     useEffect(() => {
         handleSearch('', storyID);
@@ -56,8 +61,8 @@ function UserEntry({...props}) {
                         <p>{entry.content}</p>
                         <p>{entry.datetime}</p>
                         <Stack direction='horizontal' gap={3}>
-                        {/* <EditEntry entryID={entry._id} setUpdated={setUpdated} /> */}
-                        <EditEntry entryID={entry._id}/>
+                            {/* <EditEntry entryID={entry._id} setUpdated={setUpdated} /> */}
+                            <EditEntry entryID={entry._id} />
                             <Button onClick={() => handleDelete(entry._id)}>Delete</Button>
                         </Stack>
                     </ListGroup.Item>

@@ -3,7 +3,7 @@ const router = express.Router();
 const MongoUtil = require('../modules/MongoUtil');
 const ObjectID = require('mongodb').ObjectId
 
-router.get('/entries/:storyID', async (req, res) => {
+router.get('/:storyID', async (req, res) => {
   const storyID = req.params.storyID;
   try {
     const db = await MongoUtil.connect();

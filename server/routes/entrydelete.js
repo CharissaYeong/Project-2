@@ -3,7 +3,7 @@ const router = express.Router();
 const MongoUtil = require("../modules/MongoUtil");
 const ObjectID = require('mongodb').ObjectId
 
-router.delete('/entries/delete/:userID/:entryID', async function (req, res) {
+router.delete('/delete/:userID/:entryID', async function (req, res) {
     const userID = req.params.userID;
     const entryID = req.params.entryID;
     

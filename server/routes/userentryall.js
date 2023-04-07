@@ -3,7 +3,7 @@ const router = express.Router();
 const MongoUtil = require('../modules/MongoUtil');
 const ObjectId = require('mongodb').ObjectId
 
-router.get('/entries/:storyID/:userID', async (req, res) => {
+router.get('/:storyID/:userID', async (req, res) => {
     const userID = req.params.userID
     const storyID = req.params.storyID;
   try {

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const MongoUtil = require('../modules/MongoUtil');
 
-router.get('/entries/content/:storyID/:query', async (req, res) => {
+router.get('/content/:storyID/:query', async (req, res) => {
   const query = req.params.query;
   const storyID = req.params.storyID;
   try {

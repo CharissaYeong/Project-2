@@ -11,16 +11,20 @@ function SearchEntry({...props}) {
   const { storyID } = props;
 
   const handleSearch = async (query, story_id) => {
-    try {
-      if (query === '') {
-        const response = await axios.get(`http://localhost:3001/entries/${story_id}`);
-        setEntries(response.data.allEntries);
-      } else {
-        const response = await axios.get(`http://localhost:3001/entries/content/${story_id}/${query}`);
-        setEntries(response.data.allEntries);
+    if (!story_id) {
+      return
+    } else {
+      try {
+        if (query === '') {
+          const response = await axios.get(`http://localhost:3001/entries/${story_id}`);
+          setEntries(response.data.allEntries);
+        } else {
+          const response = await axios.get(`http://localhost:3001/entries/content/${story_id}/${query}`);
+          setEntries(response.data.allEntries);
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
     }
   }
 

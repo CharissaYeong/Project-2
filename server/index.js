@@ -43,6 +43,7 @@ const entrydelete = require('./routes/entrydelete')
 const editentry = require('./routes/editentry')
 const getentry = require('./routes/getentry')
 const likeRoute = require('./routes/like')
+const storyplotRoute = require('./routes/storyplot')
 
 const checkIfAuthenticatedJWT = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -66,16 +67,17 @@ const checkIfAuthenticatedJWT = (req, res, next) => {
 app.use("/register", registerRoute)
 app.use("/login", loginRoute)
 app.use("/", profileRoute)
-app.use("/storyhome", storyhomeRoute)
-app.use("/", getplotRoute)
+app.use("/stories", storyhomeRoute)
+app.use("/entries", getplotRoute)
 app.use("/newplot", newplotRoute)
-app.use("/", entrysearchRoute)
-app.use("/", userentryallRoute)
-app.use("/", userentryRoute)
-app.use("/", entrydelete)
-app.use("/", editentry)
-app.use("/", getentry)
+app.use("/entries", entrysearchRoute)
+app.use("/entries", userentryallRoute)
+app.use("/entries", userentryRoute)
+app.use("/entries", entrydelete)
+app.use("/entries", editentry)
+app.use("/entries", getentry)
 app.use("/", likeRoute )
+app.use("/stories", storyplotRoute)
 
 // checkIfAuthenticatedJWT
 
