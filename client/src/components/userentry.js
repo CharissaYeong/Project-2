@@ -6,20 +6,18 @@ import EditEntry from './editentry'
 import { EntryContext } from '../pages/home';
 import { debounce } from 'lodash';
 
-function UserEntry() {
+function UserEntry({...props}) {
     const [entries, setEntries] = useState([]);
-    // const [entryID, setEntryID] = useState("")
-    // const [updated, setUpdated] = useState(false);
     const [updated, setUpdated] = useContext(EntryContext);
+    const { storyID } = props;
 
-    const handleSearch = async (query) => {
+    const handleSearch = async (query, story_id) => {
         try {
             if (query === '') {
-                const response = await axios.get(`http://localhost:3001/entries/${localStorage.getItem('userID')}`);
+                const response = await axios.get(`http://localhost:3001/entries/${story_id}/${localStorage.getItem('userID')}`);
                 setEntries(response.data.allEntries);
             } else {
-                // setEntries([])
-                const response = await axios.get(`http://localhost:3001/entries/${localStorage.getItem('userID')}/${query}`);
+                const response = await axios.get(`http://localhost:3001/entries/${story_id}/${localStorage.getItem('userID')}/${query}`);
                 setEntries(response.data.allEntries);
             }
         } catch (error) {
@@ -42,13 +40,13 @@ function UserEntry() {
      const debouncedHandleSearch = debounce(handleSearch, 500);
 
     useEffect(() => {
-        handleSearch('');
-    }, [updated]);
+        handleSearch('', storyID);
+    }, [updated, storyID]);
 
     return (
         <div>
             {/* <Button onClick={() => handleSearch('')}>Refresh</Button> */}
-            <input type="text" placeholder="Search entries" onChange={(e) => debouncedHandleSearch(e.target.value)} />
+            <input type="text" placeholder="Search entries" onChange={(e) => debouncedHandleSearch(e.target.value, storyID)} />
             <ListGroup>
                 <h4>Your Entries</h4>
                 {entries.map(entry => (

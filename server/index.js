@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 // const MongoClient = require("mongodb").MongoClient;
-const MongoUtil = require("./modules/MongoUtil");
+// const MongoUtil = require("./modules/MongoUtil");
 const jwt = require('jsonwebtoken')
 
 // const mongoUri = process.env.MONGO_URI;
@@ -67,7 +67,7 @@ app.use("/register", registerRoute)
 app.use("/login", loginRoute)
 app.use("/", profileRoute)
 app.use("/storyhome", storyhomeRoute)
-app.use("/getplot", getplotRoute)
+app.use("/", getplotRoute)
 app.use("/newplot", newplotRoute)
 app.use("/", entrysearchRoute)
 app.use("/", userentryallRoute)

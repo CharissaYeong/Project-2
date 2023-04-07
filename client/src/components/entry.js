@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button, Offcanvas, Stack } from 'react-bootstrap';
-// import Newplot from './newplot';
 import React, { useState, useEffect, useContext } from 'react';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
@@ -11,19 +10,19 @@ export default function Entry({ ...props }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const [userID, setuserID] = useState("");
-  const [storyID, setstoryID] = useState("");
   const [updated, setUpdated] = useContext(EntryContext);
+  // const [storyID, setStoryID] = useState(props.storyID)
 
   useEffect(() => {
     setuserID(localStorage.getItem('userID'));
-    setstoryID(1);
+    // setstoryID(1);
   }, []);
 
   const type = 'plot'
-
   const name = 'New Plot'
+  const { storyID } = props;
+  // console.log(storyID)
 
   return (
     <>
@@ -85,22 +84,9 @@ export default function Entry({ ...props }) {
                       <div className="invalid-feedback">{formik.errors.content}</div>
                     ) : null}
                   </div>
-
-                  {/* <div className="form-group">
-                            <label htmlFor="username">Username</label>
-                            <Field name="username" className={(formik.touched.username && formik.errors.username) ? 'form-control is-invalid' : 'form-control'}
-                                type="text" placeholder="Username will be visible to others" />
-                            {formik.touched.username && formik.errors.username ? (
-                                <div className="invalid-feedback">{formik.errors.username}</div>
-                            ) : null}
-                        </div> */}
-
-                  {/* <Modal.Footer> */}
-                  {/* <hr></hr> */}
                   <div className="form-group align-self-end">
                     <button type="submit" className="btn btn-primary" disabled={isSubmitting}>{isSubmitting ? "Please wait..." : "Submit"}</button>
                   </div>
-                  {/* </Modal.Footer> */}
                 </Stack>
               </Form>
             )

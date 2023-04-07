@@ -3,9 +3,10 @@ const router = express.Router();
 const MongoUtil = require('../modules/MongoUtil');
 const ObjectId = require('mongodb').ObjectId
 
-router.get('/entries/:userID/:query', async (req, res) => {
+router.get('/entries/:storyID/:userID/:query', async (req, res) => {
     const query = req.params.query;
     const userID = req.params.userID
+    const storyID = req.params.storyID;
     try {
         const db = await MongoUtil.connect();
         const users = await db.collection('users')
@@ -20,7 +21,7 @@ router.get('/entries/:userID/:query', async (req, res) => {
 
             if (entries?.length > 0) {
                 entries.forEach((entry) => {
-                    if (new RegExp(query, 'i').test(entry.content)) {
+                    if (new RegExp(query, 'i').test(entry.content) && entry.story_id.toString() === storyID) {
                         allEntries.push({ ...entry, userId, username });
                     }
                 });

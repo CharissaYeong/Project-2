@@ -35,6 +35,7 @@ export default function Home() {
 
   }, []);
 
+
   return (
     <EntryContext.Provider value={[updated, setUpdated]}>
       <Navigation />
@@ -46,18 +47,18 @@ export default function Home() {
         >
           <Tab eventKey="home" title="Home">
             <Container fluid className="story_home">
-              <StoryHome />
+              <StoryHome storyID={setStoryID}/>
             </Container>
           </Tab>
           <Tab eventKey="characters" title="Characters">
             List of characters
           </Tab>
           <Tab eventKey="submit entries" title="Submit Entries">
-            <Entry />
-            <SearchEntry />
+            <Entry storyID={storyID} />
+            <SearchEntry storyID={storyID} />
           </Tab>
           <Tab eventKey="your entries" title="Your Entries">
-            <UserEntry />
+            <UserEntry storyID={storyID} />
           </Tab>
         </Tabs>
       </main>

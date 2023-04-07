@@ -17,9 +17,13 @@ export default function EditEntry({ name, ...props }) {
     // const [entry, setEntry] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/entries/get/${localStorage.getItem('userID')}/${entryID}`)
+        axios.get(`http://localhost:3001/entries/original/getcontent/${localStorage.getItem('userID')}/${entryID}`)
           .then((response) => {
-            setInitialContent(response.data[0].entries[0].content);
+            if (response.data.original && response.data.original.length > 0 && response.data.original[0].entries) {
+              setInitialContent(response.data.original[0].entries[0].content);
+            } else {
+              setInitialContent('');
+            }
           })
           .catch((error) => {
             console.log(error);

@@ -5,17 +5,18 @@ import { Button, ListGroup } from "react-bootstrap";
 import { EntryContext } from '../pages/home';
 import { debounce } from 'lodash';
 
-function SearchEntry() {
+function SearchEntry({...props}) {
   const [entries, setEntries] = useState([]);
   const [updated, setUpdated] = useContext(EntryContext);
+  const { storyID } = props;
 
-  const handleSearch = async (query) => {
+  const handleSearch = async (query, story_id) => {
     try {
       if (query === '') {
-        const response = await axios.get('http://localhost:3001/getplot');
+        const response = await axios.get(`http://localhost:3001/entries/${story_id}`);
         setEntries(response.data.allEntries);
       } else {
-        const response = await axios.get(`http://localhost:3001/entries/content/${query}`);
+        const response = await axios.get(`http://localhost:3001/entries/content/${story_id}/${query}`);
         setEntries(response.data.allEntries);
       }
     } catch (error) {
@@ -26,13 +27,12 @@ function SearchEntry() {
   const debouncedHandleSearch = debounce(handleSearch, 500);
 
   useEffect(() => {
-    handleSearch('');
-    }, [updated]);
+    handleSearch('', storyID);
+    }, [updated, storyID]);
 
   return (
     <div>
-      {/* <Button onClick={() => handleSearch('')}>Refresh</Button> */}
-      <input type="text" placeholder="Search entries" onChange={(e) => debouncedHandleSearch(e.target.value)} />
+      <input type="text" placeholder="Search entries" onChange={(e) => debouncedHandleSearch(e.target.value, storyID)} />
       <ListGroup>
         <h4>All entries</h4>
         {entries.map(entry => (

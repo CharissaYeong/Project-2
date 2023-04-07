@@ -1,25 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import { Stack } from "react-bootstrap";
 import axios from "axios";
+import { EntryContext } from "../pages/home";
 
-export default function StoryHome() {
+export default function StoryHome(props) {
     const [prompt, setPrompt] = useState("");
     const [cover, setCover] = useState("");
     const [title, setTitle] = useState("");
     const [plot, setPlot] = useState([]);
-    const [storyID, setstoryID] = useState("");
     const [Active, setActive] = useState("");
+    const [updated, setUpdated] = useContext(EntryContext)
 
     useEffect(() => {
         try {
             axios.get('http://localhost:3001/storyhome')
                 .then((response) => {
                     let Data = response.data
-                    const story = Data.filter(story => story.story_id === "1");
+                    const story = Data.filter(story => story.active === "1");
                     const prompt = story[0].prompt;
                     const title = story[0].title;
                     const plot = story[0].plot;
+                    props.storyID(story[0]._id)
                     setPrompt(prompt)
                     setTitle(title)
                     setPlot(plot)
@@ -29,6 +31,21 @@ export default function StoryHome() {
             alert(error.response.data)
         }
       }, []);
+
+    //   useEffect(() => {
+    //     try {
+    //         axios.get('http://localhost:3001/storyhome')
+    //             .then((response) => {
+    //                 let Data = response.data
+    //                 const story = Data.filter(story => story.active === "1");
+    //                 const plot = story[0].plot;
+    //                 setPlot(plot)
+    //             })
+    //     } catch (error) {
+    //         // console.log(error.response.data)
+    //         alert(error.response.data)
+    //     }
+    //   }, [updated]);
 
     return (
         <>
