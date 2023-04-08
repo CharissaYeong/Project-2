@@ -43,7 +43,6 @@ export default function StoryHome({ ...props }) {
                         if (story.length > 0 && story[0]._id !== plot[0]?._id) {
                             // setPlot(story)
                             setPlot(prevPlot => [...story])
-                            console.log(plot)
                         } else {
                             return
                         }

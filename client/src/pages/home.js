@@ -1,7 +1,7 @@
 import React, { useEffect, useState, createContext } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import './home.css';
-import { Container, Tab, Tabs } from 'react-bootstrap'
+import { Container, Tab, Tabs, Stack} from 'react-bootstrap'
 
 import Navigation from "../components/navbar";
 import StoryHome from "../components/storyhome";
@@ -38,26 +38,25 @@ export default function Home() {
 
   return (
     <EntryContext.Provider value={[updated, setUpdated]}>
-      <Navigation />
+      <Navigation username={username}/>
       <main className="home_body">
         <Tabs
           defaultActiveKey="home"
           id="home_tabs"
           className="mb-3"
         >
-          <Tab eventKey="home" title="Home">
+          <Tab eventKey="home" title="Home" className="tabnav">
             <Container fluid className="story_home">
               <StoryHome storyID={setStoryID}/>
             </Container>
           </Tab>
-          <Tab eventKey="characters" title="Characters">
-            List of characters
-          </Tab>
-          <Tab eventKey="submit entries" title="Submit Entries">
+          <Tab eventKey="submit entries" title="Submit Entries" className="tabnavsub">
+            <Stack gap={3}>
             <Entry storyID={storyID} />
             <SearchEntry storyID={storyID} />
+            </Stack>
           </Tab>
-          <Tab eventKey="your entries" title="Your Entries">
+          <Tab eventKey="your entries" title="Your Entries" className="tabnav">
             <UserEntry storyID={storyID} />
           </Tab>
         </Tabs>

@@ -5,12 +5,12 @@ import * as Yup from 'yup';
 import { Stack, Modal } from 'react-bootstrap';
 import { useNavigate} from 'react-router-dom'
 import axios from 'axios'
-import { useCookies } from 'react-cookie'
+// import { useCookies } from 'react-cookie'
 import YupPassword from 'yup-password'
 YupPassword(Yup)
 
 const Login = () => {
-    const [_, setCookies ] = useCookies(["access_token"]);
+    // const [_, setCookies ] = useCookies(["access_token"]);
     const navigate = useNavigate()
 
     return (
@@ -20,20 +20,18 @@ const Login = () => {
             onSubmit={async (values, { setSubmitting, resetForm }) => {
 
                 setTimeout(async () => {
-                    // alert('Logged in sucessfully!' + JSON.stringify(values, null, 2));
                     try {
                         const user = await axios.post("http://localhost:3001/login", {
                             "email": values.email,
                             "password": values.password
                         }) .then((response) => {
-                            setCookies("access_token", response.data.token)
+                            // setCookies("access_token", response.data.token)
                             window.localStorage.setItem("userID", response.data.userID)
-                            console.log(response.status)
+                            // console.log(response.status)
                             alert('Logged in sucessfully!');
                             navigate("/Home")
                           })
                     }   catch (error) {
-                        // console.error(error.response.data)
                         alert(error.response.data)
                     }
                     setSubmitting(false);

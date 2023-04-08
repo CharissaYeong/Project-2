@@ -21,12 +21,16 @@ router.get('/:storyID/:userID/:query', async (req, res) => {
 
             if (entries?.length > 0) {
                 entries.forEach((entry) => {
-                    if (new RegExp(query, 'i').test(entry.content) && entry.story_id.toString() === storyID) {
-                        allEntries.push({ ...entry, userId, username });
-                    }
+                  if (new RegExp(query, 'i').test(entry.content) ||
+                  new RegExp(query, 'i').test(entry.datetime) ||
+                  new RegExp(query, 'i').test(entry._id) ||
+                  new RegExp(query, 'i').test(username)
+                  && entry.story_id.toString() === storyID) {
+                    allEntries.push({ ...entry, userId, username });
+                  }
                 });
-            }
-        });
+              }
+            });
 
         allEntries.sort((a, b) => {
             return new Date(b.datetime) - new Date(a.datetime);

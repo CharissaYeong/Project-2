@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as Yup from 'yup';
@@ -15,7 +15,6 @@ const Register = () => {
             onSubmit={async (values, { setSubmitting, resetForm }) => {
 
                 setTimeout(async () => {
-                    // alert('Registered sucessfully!' + JSON.stringify(values, null, 2));
                     try {
                         await axios.post("http://localhost:3001/register", {
                             "email": values.email,
@@ -26,7 +25,6 @@ const Register = () => {
                             alert(response.data);
                           })
                     }   catch (error) {
-                        // console.log(error.response.data)
                         alert(error.response.data)
                     }
                     setSubmitting(false);
@@ -99,7 +97,7 @@ const Register = () => {
                         </div>
                         <Modal.Footer>
                             <div className="form-group align-self-end">
-                                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>{isSubmitting ? "Please wait..." : "Submit"}</button>
+                                <button type="submit" className="btn btn-dark" disabled={isSubmitting}>{isSubmitting ? "Please wait..." : "Submit"}</button>
                             </div>
                         </Modal.Footer>
                     </Stack>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Button, ListGroup, Stack } from "react-bootstrap";
+import { Button, ListGroup, Stack, Form } from "react-bootstrap";
 import EditEntry from './editentry'
 import { EntryContext } from '../pages/home';
 import { debounce } from 'lodash';
@@ -50,20 +50,24 @@ function UserEntry({ ...props }) {
 
     return (
         <div>
-            {/* <Button onClick={() => handleSearch('')}>Refresh</Button> */}
-            <input type="text" placeholder="Search entries" onChange={(e) => debouncedHandleSearch(e.target.value, storyID)} />
+            <Form.Control type="text" placeholder="Search entries" className='search' 
+            onChange={(e) => debouncedHandleSearch(e.target.value, storyID)} />
             <ListGroup>
-                <h4>Your Entries</h4>
+            <h4 className='entry_header'>Your entries</h4>
                 {entries.map(entry => (
-                    <ListGroup.Item key={entry._id}>
-                        <h6>{entry.username}</h6>
-                        <p>Type: {entry.type}</p>
+                    <ListGroup.Item key={entry._id} className='entry_item'>
+                        <h6 className='entry_user'>{entry.username}</h6>
+                        <p className='text-muted'>Type: {entry.type}</p>
                         <p>{entry.content}</p>
-                        <p>{entry.datetime}</p>
+                        <Stack direction="horizontal" gap={3}>
+                            <small className='text-muted'>id: {entry._id}</small>
+                            <small className='text-muted'>date: {entry.datetime}</small>
+                        </Stack>
+                        <p className='likes'>Likes: {entry.likes}</p>
+                        <hr></hr>
                         <Stack direction='horizontal' gap={3}>
-                            {/* <EditEntry entryID={entry._id} setUpdated={setUpdated} /> */}
                             <EditEntry entryID={entry._id} />
-                            <Button onClick={() => handleDelete(entry._id)}>Delete</Button>
+                            <Button variant="dark" size="sm" onClick={() => handleDelete(entry._id)}>Delete</Button>
                         </Stack>
                     </ListGroup.Item>
                 ))}

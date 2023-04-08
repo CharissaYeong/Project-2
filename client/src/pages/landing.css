@@ -84,6 +84,10 @@
     font-size: 1.1rem;
 }
 
+.modal-content {
+    font-family: 'Roboto Serif', serif;
+}
+
 @media (min-width: 280px) {
     .lp_welcome {
         font-size: 1rem;

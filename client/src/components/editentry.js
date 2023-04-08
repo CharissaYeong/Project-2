@@ -14,7 +14,6 @@ export default function EditEntry({ name, ...props }) {
     const [entryID, setEntryID] = useState(props.entryID);
     const [initialContent, setInitialContent] = useState("");
     const [updated, setUpdated] = useContext(EntryContext);
-    // const [entry, setEntry] = useState([])
 
     useEffect(() => {
         axios.get(`http://localhost:3001/entries/original/getcontent/${localStorage.getItem('userID')}/${entryID}`)
@@ -35,7 +34,7 @@ export default function EditEntry({ name, ...props }) {
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow} className="me-2">
+            <Button variant="dark" size="sm" onClick={handleShow} className="me-2">
                 {name}
             </Button>
             <Offcanvas show={show} onHide={handleClose} placement="bottom">
@@ -81,7 +80,8 @@ export default function EditEntry({ name, ...props }) {
                                         <label htmlFor="content">Plot Content</label>
                                         <Field name="content"
                                             className={(formik.touched.content && formik.errors.content) ? 'form-control is-invalid' : 'form-control'}
-                                            type="textarea"
+                                            // type="textarea"
+                                            component="textarea" rows="20"
                                             placeholder="Entry should be 200-1000 characters and written as complete sentences, avoid abbreviations like a.w.o.l"
 
                                         />

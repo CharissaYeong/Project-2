@@ -8,15 +8,36 @@
 .nav_logo {
   margin-top: 0.5rem;
   }
-  .navbar-toggler-icon{
+.nav_brand > * {
+  text-decoration: none;
+  color: black;
+}
+.navbar-toggler-icon{
     background-image: url('https://api.iconify.design/material-symbols/menu-book.svg') !important;
     background-size: contain;
     background-repeat: no-repeat;
   }
-  .logo_body {
-    background-color: blanchedalmond;
-    /* border: 10px double black; */
+.logo_body {
+    background-color: white;
+    box-shadow: 0 0 100px 5px rgba(212, 141, 93, 0.5) inset;
   }
-  #offcanvasNavbar-expand-md {
-    width: 80vw
+#offcanvasNavbar-expand-md {
+    width: 80vw;
+    font-family: 'Roboto Mono', monospace;
+    background-color: rgb(221, 233, 229);
+    border: 4px double rgba(212, 141, 93, 0.5);
   }
+.nav_body {
+  font-family:'Roboto Mono', monospace;
+  background-color: rgb(221, 233, 229);
+  border: 4px double rgba(212, 141, 93, 0.5);
+}
+.nav_body .nav_btn {
+  border-radius: 20px
+}
+
+/* $almond: rgba(233, 214, 197, 1);
+$persian-orange: rgba(212, 141, 93, 1);
+$outer-space: rgba(65, 71, 69, 1);
+$bistre: rgba(73, 45, 37, 1);
+$night: rgba(15, 17, 16, 1); */

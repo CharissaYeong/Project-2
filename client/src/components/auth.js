@@ -8,13 +8,7 @@ export default function Auth(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  // const [fullscreen, setFullscreen] = useState(true);
-
-  // function handleShow(breakpoint) {
-  //   setFullscreen('sm-down');
-  //   setShow(true);
-  // }
-
+  
   const view = props.view
 
   function select_view(view) {

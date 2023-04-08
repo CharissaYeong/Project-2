@@ -2,11 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-// const MongoClient = require("mongodb").MongoClient;
-// const MongoUtil = require("./modules/MongoUtil");
 const jwt = require('jsonwebtoken')
-
-// const mongoUri = process.env.MONGO_URI;
 
 let app = express();
 
@@ -42,7 +38,6 @@ const userentryallRoute = require('./routes/userentryall')
 const entrydelete = require('./routes/entrydelete')
 const editentry = require('./routes/editentry')
 const getentry = require('./routes/getentry')
-const likeRoute = require('./routes/like')
 const storyplotRoute = require('./routes/storyplot')
 
 const checkIfAuthenticatedJWT = (req, res, next) => {
@@ -76,7 +71,6 @@ app.use("/entries", userentryRoute)
 app.use("/entries", entrydelete)
 app.use("/entries", editentry)
 app.use("/entries", getentry)
-app.use("/", likeRoute )
 app.use("/stories", storyplotRoute)
 
 // checkIfAuthenticatedJWT
