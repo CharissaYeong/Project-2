@@ -65,7 +65,7 @@
 
 .entry-textarea {
     width: 100%;
-    height: 60vh;
+    height: 55vh;
     resize: vertical;
 }
 
@@ -75,7 +75,7 @@
     }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
     .offcanvas.offcanvas-bottom {
         height: 80vh;
     }

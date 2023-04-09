@@ -71,7 +71,7 @@ const Login = () => {
                         <Modal.Footer>
                             <div className='req_status'></div>
                             <div className="form-group align-self-end">
-                                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>{isSubmitting ? "Please wait..." : "Submit"}</button>
+                                <button type="submit" className="btn btn-dark" disabled={isSubmitting}>{isSubmitting ? "Please wait..." : "Submit"}</button>
                             </div>
                         </Modal.Footer>
                     </Stack>

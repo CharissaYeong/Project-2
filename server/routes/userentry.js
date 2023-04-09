@@ -22,7 +22,7 @@ router.get('/:storyID/:userID/:query', async (req, res) => {
             if (entries?.length > 0) {
                 entries.forEach((entry) => {
                   if (new RegExp(query, 'i').test(entry.content) ||
-                  new RegExp(query, 'i').test(entry.datetime) ||
+                  new RegExp(query, 'i').test(entry.type) ||
                   new RegExp(query, 'i').test(entry._id) ||
                   new RegExp(query, 'i').test(username)
                   && entry.story_id.toString() === storyID) {

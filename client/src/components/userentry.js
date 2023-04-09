@@ -50,7 +50,7 @@ function UserEntry({ ...props }) {
 
     return (
         <div>
-            <Form.Control type="text" placeholder="Search entries" className='search' 
+            <Form.Control type="text" placeholder="Search entries by user/id/type/content" className='search' 
             onChange={(e) => debouncedHandleSearch(e.target.value, storyID)} />
             <ListGroup>
             <h4 className='entry_header'>Your entries</h4>

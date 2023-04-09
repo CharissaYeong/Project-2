@@ -27,7 +27,7 @@ export default function EditEntry({ name, ...props }) {
           .catch((error) => {
             console.log(error);
           });
-      }, []);
+      }, [updated]);
 
     name = 'Edit'
 
@@ -39,7 +39,7 @@ export default function EditEntry({ name, ...props }) {
             </Button>
             <Offcanvas show={show} onHide={handleClose} placement="bottom">
                 <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+                    <Offcanvas.Title>Edit Entry</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     <Formik
@@ -58,8 +58,8 @@ export default function EditEntry({ name, ...props }) {
                                     console.log(error.response.data)
                                 }
                                 setSubmitting(false);
-                                resetForm()
-                                // props.setUpdated(true)
+                                // resetForm()
+                                handleClose()
                                 setUpdated(!updated)
                             }, 1000);
                         }}
@@ -67,7 +67,7 @@ export default function EditEntry({ name, ...props }) {
                         validationSchema={Yup.object({
                             content: Yup.string()
                                 .min(100, 'Entry should be at least 100 characters')
-                                .max(1000, 'Entry should not be longer than 1000 characters')
+                                .max(2500, 'Entry should not be longer than 1000 characters')
                                 .matches(/^[A-Z][^!?]*[.!?](\s+[A-Z][^!?]*[.!?])*$/, 'Entry should only contain complete sentences')
                                 .required('Please write your entry.')
                         })}
@@ -79,8 +79,8 @@ export default function EditEntry({ name, ...props }) {
                                     <div className="form-group">
                                         <label htmlFor="content">Plot Content</label>
                                         <Field name="content"
-                                            className={(formik.touched.content && formik.errors.content) ? 'form-control is-invalid' : 'form-control'}
-                                            // type="textarea"
+                                            // className={(formik.touched.content && formik.errors.content) ? 'form-control is-invalid' : 'form-control'}
+                                            className={`form-control ${formik.touched.content && formik.errors.content ? 'is-invalid' : ''} entry-textarea`}
                                             component="textarea" rows="20"
                                             placeholder="Entry should be 200-1000 characters and written as complete sentences, avoid abbreviations like a.w.o.l"
 
@@ -90,7 +90,7 @@ export default function EditEntry({ name, ...props }) {
                                         ) : null}
                                     </div>
                                     <div className="form-group align-self-end">
-                                        <button type="submit" className="btn btn-primary" disabled={isSubmitting}>{isSubmitting ? "Please wait..." : "Submit"}</button>
+                                        <button type="submit" className="btn btn-dark" disabled={isSubmitting}>{isSubmitting ? "Please wait..." : "Submit"}</button>
                                     </div>
                                 </Stack>
                             </Form>

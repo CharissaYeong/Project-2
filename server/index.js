@@ -25,6 +25,28 @@ const corsOptions = {
 app.use(cors(corsOptions))
 // app.use(cors());
 
+// const checkIfAuthenticatedJWT = (req, res, next) => {
+//   const authHeader = req.headers.authorization;
+//   console.log(authHeader)
+
+//   if (authHeader) {
+//       const token = authHeader.split(' ')[1];
+
+//       jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+//           if (err) {
+//               return res.sendStatus(403);
+//           }
+
+//           req.user = user;
+//           next();
+//       });
+//   } else {
+//       res.sendStatus(401);
+//   }
+// };
+
+
+
 // Routes
 const registerRoute = require('./routes/register')
 const loginRoute = require('./routes/login')
@@ -39,25 +61,6 @@ const entrydelete = require('./routes/entrydelete')
 const editentry = require('./routes/editentry')
 const getentry = require('./routes/getentry')
 const storyplotRoute = require('./routes/storyplot')
-
-const checkIfAuthenticatedJWT = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
-  if (authHeader) {
-      const token = authHeader.split(' ')[1];
-
-      jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
-          if (err) {
-              return res.sendStatus(403);
-          }
-
-          req.user = user;
-          next();
-      });
-  } else {
-      res.sendStatus(401);
-  }
-};
 
 app.use("/register", registerRoute)
 app.use("/login", loginRoute)

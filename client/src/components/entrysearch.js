@@ -36,7 +36,7 @@ function SearchEntry({...props}) {
 
   return (
     <div>
-      <Form.Control type="text" placeholder="Search by content/username/id/date."
+      <Form.Control type="text" placeholder="Search entries by user/id/type/content"
       className='search'
        onChange={(e) => debouncedHandleSearch(e.target.value, storyID)} />
       <ListGroup>
