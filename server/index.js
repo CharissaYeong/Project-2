@@ -25,25 +25,25 @@ const corsOptions = {
 app.use(cors(corsOptions))
 // app.use(cors());
 
-// const checkIfAuthenticatedJWT = (req, res, next) => {
-//   const authHeader = req.headers.authorization;
-//   console.log(authHeader)
+const checkIfAuthenticatedJWT = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  console.log(authHeader)
 
-//   if (authHeader) {
-//       const token = authHeader.split(' ')[1];
+  if (authHeader) {
+      const token = authHeader.split(' ')[1];
 
-//       jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
-//           if (err) {
-//               return res.sendStatus(403);
-//           }
+      jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+          if (err) {
+              return res.sendStatus(403);
+          }
 
-//           req.user = user;
-//           next();
-//       });
-//   } else {
-//       res.sendStatus(401);
-//   }
-// };
+          req.user = user;
+          next();
+      });
+  } else {
+      res.sendStatus(401);
+  }
+};
 
 
 
@@ -79,6 +79,9 @@ app.use("/stories", storyplotRoute)
 // checkIfAuthenticatedJWT
 
 // START SERVER
-app.listen(3001, () => {
-  console.log("Server has started");
-});
+// app.listen(3001, () => {
+//   console.log("Server has started");
+// });
+app.listen(process.env.PORT || 3001, function(){
+  console.log("Server has started")
+})
