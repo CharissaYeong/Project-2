@@ -3,7 +3,7 @@ import { Formik, Field, Form } from 'formik';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as Yup from 'yup';
 import { Stack, Modal } from 'react-bootstrap';
-import { useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 // import { useCookies } from 'react-cookie'
 import YupPassword from 'yup-password'
@@ -24,14 +24,14 @@ const Login = () => {
                         const user = await axios.post("http://localhost:3001/login", {
                             "email": values.email,
                             "password": values.password
-                        }) .then((response) => {
+                        }).then((response) => {
                             // setCookies("access_token", response.data.token)
                             window.localStorage.setItem("userID", response.data.userID)
                             // console.log(response.status)
                             alert('Logged in sucessfully!');
                             navigate("/Home")
-                          })
-                    }   catch (error) {
+                        })
+                    } catch (error) {
                         alert(error.response.data)
                     }
                     setSubmitting(false);
