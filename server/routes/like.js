@@ -1,87 +1,40 @@
-// const express = require('express');
-// const router = express.Router();
-// const MongoUtil = require("../modules/MongoUtil");
-// const { ObjectId } = require('mongodb');
-
-// router.patch("entries/:entryId/like", async (req, res) => {
-//   const userID = req.params.userID;
-//   const entryID = req.params.entryID;
-
-//   let db = await MongoUtil.connect()
-//   const User = db.collection("users")
-
-//   try {
-//     const user = await User.findOne({ _id: new ObjectId(userID) });
-
-//     if (!user) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-
-//     const entry = user.entries.find(entry => entry._id.toString() === entryID);
-
-//     if (!entry) {
-//       return res.status(404).json({ message: 'Entry not found' });
-//     }
-
-//     // Check if user has already liked the entry
-//     const userLikedEntry = entry.likes.find((likedEntry) => likedEntry.toString() === userID);
-//     if (userLikedEntry) {
-//       return res.status(400).json({ message: 'Entry already liked by user' });
-//     }
-
-//     entry.likes.push(new ObjectId(userID));
-
-//     await User.updateOne({ _id: new ObjectId(userID) }, { $set: { entries: user.entries } });
-
-//     res.status(200).json({ message: 'Entry likes updated', entry });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Internal Server Error' });
-//   }
-// });
-
-// module.exports = router;
-
 const express = require('express');
 const router = express.Router();
-const MongoUtil = require("../modules/MongoUtil");
-const ObjectId = require('mongodb').ObjectId;
+const MongoUtil = require('../modules/MongoUtil');
+const ObjectID = require('mongodb').ObjectId
 
-router.patch("/entries/:entryId/like/:userId", async (req, res) => {
-  const userId = req.body.userId;
+router.post('/:entryId/like', async (req, res) => {
   const entryId = req.params.entryId;
-
-  let db = await MongoUtil.connect()
-  const User = db.collection("users")
-
+  const userId = req.body.userId;
   try {
-    const user = await User.findOne({ _id: new ObjectId(userId) });
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+    const db = await MongoUtil.connect()
+    // Check if user is trying to like their own entry
+    const user = await db.collection('users').findOne({ 'entries._id': new ObjectID(entryId), '_id': new ObjectID(userId) });
+    if (user) {
+      return res.status(400).send('You cannot like your own entry');
     }
 
-    const entry = user.entries.find(entry => entry._id.toString() === entryId);
+    // Check if the user has already liked the entry
+    const entry = await db.collection('users').findOne({
+      'entries._id': new ObjectID(entryId),
+      'entries.liked': new ObjectID(userId)
+    });
 
-    if (!entry) {
-      return res.status(404).json({ message: 'Entry not found' });
+    if (entry) {
+      // return res.status(400).send('You have already liked this entry');
+      return res.status(400).send('You have already liked this entry' );
     }
 
-    // Check if user has already liked the entry
-    const userLikedEntry = entry.likes.find((likedEntry) => likedEntry.toString() === userId);
-    if (userLikedEntry) {
-      return res.status(400).json({ message: 'Entry already liked by user' });
-    }
-
-    entry.likes.push(new ObjectId(userId));
-
-    await User.updateOne({ _id: new ObjectId(userId) }, { $set: { entries: user.entries } });
-
-    res.status(200).json({ message: 'Entry likes updated', entry });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    const result = await db.collection('users').updateOne(
+      { 'entries._id': new ObjectID(entryId) },
+      { $addToSet: { 'entries.$.liked': new ObjectID(userId) } }
+    );
+    res.json({ message: 'Entry liked successfully' });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send('Failed to like entry');
   }
 });
 
 module.exports = router;
+

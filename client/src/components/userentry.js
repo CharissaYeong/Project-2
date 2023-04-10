@@ -36,6 +36,7 @@ function UserEntry({ ...props }) {
                 await axios.delete(`http://localhost:3001/entries/delete/${localStorage.getItem('userID')}/${entryID}`);
                 // setEntries(entries.filter(entry => entry._id !== entryID));
                 setUpdated(!updated)
+                alert('Entry has been deleted')
             } catch (error) {
                 console.error(error);
             }

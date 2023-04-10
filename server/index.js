@@ -61,6 +61,9 @@ const entrydelete = require('./routes/entrydelete')
 const editentry = require('./routes/editentry')
 const getentry = require('./routes/getentry')
 const storyplotRoute = require('./routes/storyplot')
+const likeRoute = require('./routes/like')
+const likesNumRoute = require('./routes/likesNum')
+const plotRoute = require('./routes/plotTypes')
 
 app.use("/register", registerRoute)
 app.use("/login", loginRoute)
@@ -75,6 +78,9 @@ app.use("/entries", entrydelete)
 app.use("/entries", editentry)
 app.use("/entries", getentry)
 app.use("/stories", storyplotRoute)
+app.use("/entries/", likeRoute)
+app.use("/entries/", likesNumRoute)
+app.use("/stories", plotRoute)
 
 // checkIfAuthenticatedJWT
 

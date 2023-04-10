@@ -31,7 +31,7 @@ const logout = () => {
 
       {
         ['md'].map((expand) => (
-          <Navbar key={expand} variant="light" expand={expand} sticky="top" className="nav_body">
+          <Navbar key={expand} variant="light" expand={expand} className="nav_body">
             <Container fluid>
               <Stack direction="horizontal" gap={2}>
                 <h3><FaUserCircle /></h3>
