@@ -27,6 +27,7 @@ function GetEntries() {
     };
 
     fetchEntries();
+    console.log(response.data.allEntries)
   }, []);
 
 
