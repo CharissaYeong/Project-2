@@ -14,7 +14,7 @@ export default function StoryHome({ ...props }) {
 
     useEffect(() => {
         try {
-            axios.get('http://localhost:3001/stories')
+            axios.get(`${process.env.REACT_APP_BASE_URL}/stories`)
                 .then((response) => {
                     let Data = response.data
                     const story = Data.filter(story => story.active === "1");

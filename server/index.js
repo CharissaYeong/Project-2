@@ -89,5 +89,5 @@ app.use("/stories", plotRoute)
 //   console.log("Server has started");
 // });
 app.listen(process.env.PORT || 3001, function(){
-  console.log("Server has started")
+  console.log(process.env.PORT, "Server has started")
 })

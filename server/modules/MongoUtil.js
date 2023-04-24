@@ -12,7 +12,7 @@
 
 const MongoClient = require("mongodb").MongoClient
 require("dotenv").config();
-const mongoUri = process.env.MONGO_URI;
+// const mongoUri = process.env.MONGO_URI;
 const express = require("express");
 const cors = require("cors");
 

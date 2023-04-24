@@ -25,7 +25,7 @@ const Newplot = () => {
                 setTimeout(async () => {
                     // alert('Registered sucessfully!' + JSON.stringify(values, null, 2));
                     try {
-                        await axios.post("http://localhost:3001/newplot", {
+                        await axios.post(`${process.env.REACT_APP_BASE_URL}/newplot`, {
                             "userID": userID,
                             "story_id": storyID,
                             "type": type,

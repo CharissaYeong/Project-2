@@ -21,7 +21,7 @@ const Login = () => {
 
                 setTimeout(async () => {
                     try {
-                        const user = await axios.post("http://localhost:3001/login", {
+                        const user = await axios.post(`${process.env.REACT_APP_BASE_URL}/login`, {
                             "email": values.email,
                             "password": values.password
                         }).then((response) => {
@@ -36,7 +36,7 @@ const Login = () => {
                     }
                     setSubmitting(false);
                     resetForm()
-                }, 1000);
+                }, 0);
             }}
 
 

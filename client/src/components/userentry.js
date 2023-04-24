@@ -17,10 +17,10 @@ function UserEntry({ ...props }) {
         } else {
             try {
                 if (query === '') {
-                    const response = await axios.get(`http://localhost:3001/entries/${story_id}/${localStorage.getItem('userID')}`);
+                    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/entries/${story_id}/${localStorage.getItem('userID')}`);
                     setEntries(response.data.allEntries);
                 } else {
-                    const response = await axios.get(`http://localhost:3001/entries/${story_id}/${localStorage.getItem('userID')}/${query}`);
+                    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/entries/${story_id}/${localStorage.getItem('userID')}/${query}`);
                     setEntries(response.data.allEntries);
                 }
             } catch (error) {
@@ -33,7 +33,7 @@ function UserEntry({ ...props }) {
     const handleDelete = async (entryID) => {
         if (window.confirm("Are you sure you want to delete this entry?")) {
             try {
-                await axios.delete(`http://localhost:3001/entries/delete/${localStorage.getItem('userID')}/${entryID}`);
+                await axios.delete(`${process.env.REACT_APP_BASE_URL}/entries/delete/${localStorage.getItem('userID')}/${entryID}`);
                 // setEntries(entries.filter(entry => entry._id !== entryID));
                 setUpdated(!updated)
                 alert('Entry has been deleted')

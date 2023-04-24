@@ -16,12 +16,10 @@ router.post('/:entryId/like', async (req, res) => {
 
     // Check if the user has already liked the entry
     const entry = await db.collection('users').findOne({
-      'entries._id': new ObjectID(entryId),
-      'entries.liked': new ObjectID(userId)
+      entries: { $elemMatch: { _id: new ObjectID(entryId), liked: new ObjectID(userId) } }
     });
-
+    
     if (entry) {
-      // return res.status(400).send('You have already liked this entry');
       return res.status(400).send('You have already liked this entry' );
     }
 

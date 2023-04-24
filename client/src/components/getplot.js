@@ -8,7 +8,7 @@ function GetEntries() {
 
   async function Entry() {
     try {
-      const response = await axios.get('http://localhost:3001/getplot');
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/getplot`);
       const entry = response.data.allEntries
         setEntries(entry)
     } catch (error) {
@@ -19,7 +19,7 @@ function GetEntries() {
   useEffect(() => {
     const fetchEntries = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/getplot')
+        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/getplot`)
           setEntries(response.data.allEntries);
       } catch (error) {
         console.error(error);

@@ -22,7 +22,7 @@ export default function Home() {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/users/${localStorage.getItem('userID')}`);
+        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/${localStorage.getItem('userID')}`);
         const profile = response.data;
         setUsername(profile[0].username)
         setEmail(profile[0].email)

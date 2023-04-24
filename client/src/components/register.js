@@ -16,7 +16,7 @@ const Register = () => {
 
                 setTimeout(async () => {
                     try {
-                        await axios.post("http://localhost:3001/register", {
+                        await axios.post(`${process.env.REACT_APP_BASE_URL}/register`, {
                             "email": values.email,
                             "username": values.username,
                             "password": values.password,

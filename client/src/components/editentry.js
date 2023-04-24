@@ -48,7 +48,7 @@ export default function EditEntry({ name, ...props }) {
 
                             setTimeout(async () => {
                                 try {
-                                    await axios.put(`http://localhost:3001/entries/edit/${localStorage.getItem('userID')}/${entryID}`, {
+                                    await axios.put(`${process.env.REACT_APP_BASE_URL}/entries/edit/${localStorage.getItem('userID')}/${entryID}`, {
                                         "content": values.content
                                     }).then((response) => {
                                         alert(response.data);
@@ -61,7 +61,7 @@ export default function EditEntry({ name, ...props }) {
                                 // resetForm()
                                 handleClose()
                                 setUpdated(!updated)
-                            }, 1000);
+                            }, 0);
                         }}
 
                         validationSchema={Yup.object({
