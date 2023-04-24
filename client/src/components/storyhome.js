@@ -37,7 +37,7 @@ export default function StoryHome({ ...props }) {
             return
         } else {
             try {
-                axios.get(`http://localhost:3001/stories/${storyID}/entries`)
+                axios.get(`${process.env.REACT_APP_BASE_URL}/stories/${storyID}/entries`)
                     .then((response) => {
                         const story = response.data
                         if (story.length > 0 && story[0]._id !== plot[0]?._id) {

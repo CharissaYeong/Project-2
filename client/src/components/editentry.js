@@ -16,7 +16,7 @@ export default function EditEntry({ name, ...props }) {
     const [updated, setUpdated] = useContext(EntryContext);
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/entries/original/getcontent/${localStorage.getItem('userID')}/${entryID}`)
+        axios.get(`${process.env.REACT_APP_BASE_URL}/entries/original/getcontent/${localStorage.getItem('userID')}/${entryID}`)
           .then((response) => {
             if (response.data.original && response.data.original.length > 0 && response.data.original[0].entries) {
               setInitialContent(response.data.original[0].entries[0].content);
